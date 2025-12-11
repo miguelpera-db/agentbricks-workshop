@@ -3,7 +3,12 @@
 
 # COMMAND ----------
 
-# MAGIC %run ./Classroom-Setup-Common
+# MAGIC %pip install databricks-sdk --quiet
+# MAGIC dbutils.library.restartPython()
+
+# COMMAND ----------
+
+# MAGIC %run "./Vocareum-Workspace-Setup"
 
 # COMMAND ----------
 

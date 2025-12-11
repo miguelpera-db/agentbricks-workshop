@@ -23,6 +23,10 @@
 
 # COMMAND ----------
 
+# MAGIC %run "../../Includes/Workspace-Setup"
+
+# COMMAND ----------
+
 # MAGIC %run "../../Includes/Classroom-Setup-4.1L"
 
 # COMMAND ----------

@@ -72,6 +72,8 @@ def validate_catalog_and_schema_and_volumes():
         raise e
 
 setup_success = validate_catalog_and_schema_and_volumes()
+spark.sql("USE CATALOG dbacademy;")
+spark.sql(f"USE SCHEMA {user_schema}")
 
 # COMMAND ----------
 
@@ -384,43 +386,43 @@ display(spark.sql(f'USE dbacademy.{user_schema}'))
 # The tables referenced below are created as a part of the setup above. 
 
 function_dict = {
-    # "get_latest_return": f"""
-    # -- Create a function to get the latest return request
-    # CREATE OR REPLACE FUNCTION dbacademy.{user_schema}.get_latest_return()
-    # RETURNS TABLE(
-    # purchase_date DATE, issue_category STRING, issue_description STRING, name STRING
-    # )
-    # COMMENT 'Returns the most recent customer service interaction, such as returns.'
-    # RETURN (
-    # SELECT 
-    #     CAST(date_time AS DATE) AS purchase_date,
-    #     issue_category,
-    #     issue_description,
-    #     name
-    # FROM dbacademy.{user_schema}.cust_service_data
-    # ORDER BY date_time DESC
-    # LIMIT 1
-    # );
-    # """,
-    # "search_product_docs": f"""
-    # -- Create a function to search product documentation using vector search
-    # CREATE OR REPLACE FUNCTION dbacademy.{user_schema}.search_product_docs(
-    # search_term STRING COMMENT 'Search term for finding relevant product documentation'
-    # )
-    # RETURNS TABLE
-    # COMMENT 'Searches product documentation using vector search to retrieve relevant documentation excerpts for troubleshooting and support. This should be used to search by product as each product has its own documentation.'
-    # RETURN(
-    # SELECT
-    #     product_name,
-    #     indexed_doc as doc
-    # FROM
-    #     vector_search(
-    #     index => 'dbacademy.{user_schema}.product_docs_index',
-    #     query => search_term,
-    #     num_results => 1
-    # )
-    # );
-    # """,
+    "get_latest_return": f"""
+    -- Create a function to get the latest return request
+    CREATE OR REPLACE FUNCTION dbacademy.{user_schema}.get_latest_return()
+    RETURNS TABLE(
+    purchase_date DATE, issue_category STRING, issue_description STRING, name STRING
+    )
+    COMMENT 'Returns the most recent customer service interaction, such as returns.'
+    RETURN (
+    SELECT 
+        CAST(date_time AS DATE) AS purchase_date,
+        issue_category,
+        issue_description,
+        name
+    FROM dbacademy.{user_schema}.cust_service_data
+    ORDER BY date_time DESC
+    LIMIT 1
+    );
+    """,
+    "search_product_docs": f"""
+    -- Create a function to search product documentation using vector search
+    CREATE OR REPLACE FUNCTION dbacademy.{user_schema}.search_product_docs(
+    search_term STRING COMMENT 'Search term for finding relevant product documentation'
+    )
+    RETURNS TABLE
+    COMMENT 'Searches product documentation using vector search to retrieve relevant documentation excerpts for troubleshooting and support. This should be used to search by product as each product has its own documentation.'
+    RETURN(
+    SELECT
+        product_name,
+        indexed_doc as doc
+    FROM
+        vector_search(
+        index => 'dbacademy.{user_schema}.product_docs_index',
+        query => search_term,
+        num_results => 1
+    )
+    );
+    """,
     "get_order_history": f"""
     -- Create a function to get order history by user
     CREATE OR REPLACE FUNCTION dbacademy.{user_schema}.get_order_history(
