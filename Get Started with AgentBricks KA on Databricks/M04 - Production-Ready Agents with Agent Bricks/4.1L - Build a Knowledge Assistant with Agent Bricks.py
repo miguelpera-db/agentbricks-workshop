@@ -33,7 +33,7 @@
 
 # MAGIC %md
 # MAGIC ## A. Create the Knowledge Assistant
-# MAGIC This part of the lab will be configured by your instructor. Please follow along, but this part of the lab will be performed for you so you can query the Agent Brick deployed within this Workspace.
+# MAGIC Please follow along, but this part of the lab will be performed by you so you can query the Agent Brick deployed within this Workspace.
 # MAGIC
 # MAGIC 1. In the left nav, go to **AI / ML → Agents → Agent Bricks → Knowledge Assistant**.
 # MAGIC    (Or search “Knowledge Assistant” in the workspace search.)
@@ -53,16 +53,16 @@
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ### A1. 🚨FOR LAB INSTRUCTORS ONLY🚨
+# MAGIC ### A1. WAITING FOR THE KNOWLEDGE ASSISTANT
 # MAGIC
-# MAGIC 6. 🚨**FOR LAB INSTRUCTORS ONLY**🚨 Click **Create agent**. The right-side panel will show build/sync progress and, once ready, links to the **deployed endpoint**, **experiment**, and **synced sources**. (Initial build/sync can take a while.)
+# MAGIC 6.  The right-side panel will show build/sync progress and, once ready, links to the **deployed endpoint**, **experiment**, and **synced sources**. (Initial build/sync can take a while.)
 # MAGIC
 # MAGIC > Please allow for 5-10 minutes for the agent to be deployed.
 
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ### A2. Using the Brick
+# MAGIC ### A2. Using the Knowledge Assistant
 # MAGIC 7.  Navigate to the Playground using the left menu. 
 # MAGIC 8. Using the model name dropdown menu at the top, select your model. You can search for `my-product-agent`. 
 # MAGIC 9. Start querying! Here are some sample questions you can ask
@@ -153,14 +153,13 @@ print(response.output[0].content[0].text)
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ### 🚨FOR LAB INSTRUCTORS ONLY🚨
-# MAGIC #### Instructions
+# MAGIC ### Instructions
 # MAGIC 1. Please change clean_up to True before logging out the workspace if you are an instructor.
 # MAGIC 1. Please run the next cell to clean up any Bricks deployed during this lab.
 
 # COMMAND ----------
 
-clean_up = False # Set to false by default in case a user selects Run all by accident.
+clean_up = True # Set to false by default in case a user selects Run all by accident.
 if clean_up:
   run_agent_bricks_cleanup()
 else:
