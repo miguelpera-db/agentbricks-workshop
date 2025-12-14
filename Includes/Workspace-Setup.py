@@ -295,6 +295,45 @@ vs_endpoint_ready = setup_vector_search_endpoint()
 # COMMAND ----------
 
 import time
+import sys
+# import logging
+
+# # Configure logging
+# logging.basicConfig(
+#     level=logging.INFO,
+#     format="%(asctime)s %(levelname)s %(message)s",
+#     handlers=[logging.StreamHandler(sys.stdout)]
+# )
+# logger = logging.getLogger(__name__)
+
+def ensure_endpoint(client: VectorSearchClient, endpoint_name: str,
+                    timeout: int = 600, poll_interval: int = 10):
+    try:
+        eps = client.list_endpoints().get("endpoints", [])
+        names = [ep["name"] for ep in eps]
+        print(f"Existing endpoints: {names}")
+        if endpoint_name not in names:
+            print(f"Creating vector search endpoint '{endpoint_name}'")
+            client.create_endpoint(name=endpoint_name, endpoint_type="STANDARD")
+        else:
+            print(f"Endpoint '{endpoint_name}' already exists")
+
+        start = time.time()
+        while True:
+            ep_info = client.get_endpoint(endpoint_name)
+            state = ep_info.get("endpoint_status", {}).get("state", "UNKNOWN")
+            print(f"Endpoint state: {state}")
+            if state in ("ONLINE", "PROVISIONED", "READY"):
+                print(f"Endpoint '{endpoint_name}' ready")
+                break
+            if state in ("FAILED", "OFFLINE"):
+                raise RuntimeError(f"Endpoint '{endpoint_name}' failed (state={state})")
+            if time.time() - start > timeout:
+                raise TimeoutError(f"Timed out waiting for endpoint '{endpoint_name}' to be ready")
+            time.sleep(poll_interval)
+    except Exception as e:
+        print(f"Error ensuring endpoint: {e}")
+        raise
 
 # Check if the index exists
 def index_exists(vsc, vs_endpoint_name, index_name):
@@ -330,9 +369,11 @@ def wait_for_index_to_be_ready(vsc, vs_endpoint_name, index_name):
 def create_vs_index():
     # create or sync the index
     vsc = VectorSearchClient()
-    vs_endpoint_name = "vs_endpoint_1"
+    vs_endpoint_name = f"vs_endpoint_{user_schema}"
     vs_index_name = f"dbacademy.{user_schema}.product_docs_index"
     source_table = f"dbacademy.{user_schema}.product_docs"
+
+    ensure_endpoint(vsc, vs_endpoint_name)
 
     if not index_exists(vsc, vs_endpoint_name, vs_index_name):
         print(f"Creating index {vs_index_name} on endpoint {vs_endpoint_name}...")
