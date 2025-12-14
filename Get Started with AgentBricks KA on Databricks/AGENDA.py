@@ -9,7 +9,6 @@
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC %md
 # MAGIC
 # MAGIC ## Get Started with AI Agents on Databricks
 # MAGIC
