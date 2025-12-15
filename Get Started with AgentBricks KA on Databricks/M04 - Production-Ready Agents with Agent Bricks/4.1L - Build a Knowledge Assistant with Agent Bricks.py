@@ -135,7 +135,7 @@
 # MAGIC - `get_return_policy()`: A function that will access the internal knowledge base or policy documents related to returns, refunds, and exchanges. The goal of creating this tool is to verify you are in compliance with company guidelines, which prevents potential errors and conflicts.
 # MAGIC - `get_order_history()`: A function that queries the order management system or customer database by the user's email. The goal of this tool is to review past purchases, return patterns, and any specific notes to help determine appropriate next steps (e.g., confirm eligibility for return).
 # MAGIC #### Instructions
-# MAGIC 1. Open the **dbacademy** catalog again in a separate window and click on the `datasets` schema. There you will see the two functions mentioned above. 
+# MAGIC 1. Open the **dbacademy** catalog again in a separate window and click on your schema. There you will see the two functions mentioned above (apart from other two). 
 # MAGIC 1. Click on `get_return_policy`. Here you will see
 # MAGIC     - The description of the SQL function. 
 # MAGIC     - The **Definition** (the query)
