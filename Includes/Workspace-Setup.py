@@ -257,7 +257,7 @@ def setup_vector_search_endpoint():
     
     try:
         vs_client = VectorSearchClient()
-        endpoint_name = "vs_endpoint_1"
+        endpoint_name = f"vs_endpoint_{user_schema}"
         
         # List existing endpoints
         existing_endpoints = vs_client.list_endpoints()
@@ -414,8 +414,8 @@ permissions_set = setup_permissions(tables)
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ## 7. Create Model Serving Endpoint
-# MAGIC To have the model ready for serving, we need to create a few UC functions and use those as a part of the workspace setup. Users should not be able to access the UDFs or the model itself, just the endpoint.
+# MAGIC ## 7. Create Functions
+# MAGIC
 
 # COMMAND ----------
 
@@ -647,26 +647,26 @@ def enable_scale_to_zero(endpoint_name: str) -> None:
 
 # COMMAND ----------
 
-# print("="*60)
-# print("WORKSPACE SETUP COMPLETE")
-# print("="*60)
+print("="*60)
+print("WORKSPACE SETUP COMPLETE")
+print("="*60)
 
-# print(f"Catalog & Schema: {'Ready' if setup_success else 'Failed'}")
-# print(f"Delta Tables: {'Loaded' if tables_loaded else 'Failed'}")  
-# print(f"Permissions: {'Set' if permissions_set else 'Failed'}")
-# print(f"CDF: {'Enabled' if permissions_set else 'Failed'}")
-# print(f"Vector Search: {'Ready' if vs_endpoint_ready else 'Failed'}")
-# print(f"Vector Search Index: {'Ready' if vs_index_ready else 'Failed'}")
+print(f"Catalog & Schema: {'Ready' if setup_success else 'Failed'}")
+print(f"Delta Tables: {'Loaded' if tables_loaded else 'Failed'}")  
+print(f"Permissions: {'Set' if permissions_set else 'Failed'}")
+print(f"CDF: {'Enabled' if permissions_set else 'Failed'}")
+print(f"Vector Search: {'Ready' if vs_endpoint_ready else 'Failed'}")
+print(f"Vector Search Index: {'Ready' if vs_index_ready else 'Failed'}")
 
-# if all([setup_success, tables_loaded, permissions_set, cdf_enabled, vs_endpoint_ready, vs_index_ready]):
-#     print("\nAll components successfully configured!")
-#     print("\nAvailable tables:")
-#     print(f"- dbacademy.{user_schema}.cust_service_data")
-#     print(f"- dbacademy.{user_schema}.policies") 
-#     print(f"- dbacademy.{user_schema}.product_docs")
-#     print(f"\nVector search endpoint: vs_endpoint_1")
-#     print(f"\nVector search index is created and ready for queries")
-# else:
-#     print("\nSome components failed to configure. Check logs above.")
+if all([setup_success, tables_loaded, permissions_set, cdf_enabled, vs_endpoint_ready, vs_index_ready]):
+    print("\nAll components successfully configured!")
+    print("\nAvailable tables:")
+    print(f"- dbacademy.{user_schema}.cust_service_data")
+    print(f"- dbacademy.{user_schema}.policies") 
+    print(f"- dbacademy.{user_schema}.product_docs")
+    print(f"\nVector search endpoint: vs_endpoint_{user_schema}")
+    print(f"\nVector search index is created and ready for queries")
+else:
+    print("\nSome components failed to configure. Check logs above.")
 
-# print("="*60)
+print("="*60)

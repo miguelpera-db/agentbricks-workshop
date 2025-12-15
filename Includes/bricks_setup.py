@@ -160,7 +160,8 @@ def main(spark):
     schema=spark.sql("SELECT regexp_replace(session_user(), '@.*$', '');").collect()[0][0]
     print(f"User schema: {schema}")
 
-    endpoint_name = "bricks_endpoint"
+    # endpoint_name = "bricks_endpoint"
+    endpoint_name = f"vs_endpoint_{schema}"
     base_url = "https://raw.githubusercontent.com/databricks/tmm/main/bricks-workshop/data"
     csv_files = {
         "billing": f"{base_url}/billing.csv",
