@@ -252,6 +252,10 @@ cdf_enabled = enable_cdf()
 
 # COMMAND ----------
 
+
+
+# COMMAND ----------
+
 def setup_vector_search_endpoint():
     """Check and create vector search endpoint if needed"""
     
@@ -307,7 +311,7 @@ import sys
 # logger = logging.getLogger(__name__)
 
 def ensure_endpoint(client: VectorSearchClient, endpoint_name: str,
-                    timeout: int = 600, poll_interval: int = 10):
+                    timeout: int = 1200, poll_interval: int = 10):
     try:
         eps = client.list_endpoints().get("endpoints", [])
         names = [ep["name"] for ep in eps]
@@ -348,7 +352,7 @@ def index_exists(vsc, vs_endpoint_name, index_name):
 
 # Inform the user that the index is ready
 def wait_for_index_to_be_ready(vsc, vs_endpoint_name, index_name):
-  for i in range(180):
+  for i in range(360):
     idx = vsc.get_index(vs_endpoint_name, index_name).describe()
     index_status = idx.get('status', idx.get('index_status', {}))
     status = index_status.get('detailed_state', index_status.get('status', 'UNKNOWN')).upper()

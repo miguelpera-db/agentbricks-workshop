@@ -63,7 +63,7 @@ def enable_cdf(spark, catalog: str, schema: str, table: str):
         # We don’t necessarily stop — maybe it's already enabled or unsupported.
 
 def ensure_endpoint(client: VectorSearchClient, endpoint_name: str,
-                    timeout: int = 600, poll_interval: int = 10):
+                    timeout: int = 1200, poll_interval: int = 10):
     try:
         eps = client.list_endpoints().get("endpoints", [])
         names = [ep["name"] for ep in eps]
