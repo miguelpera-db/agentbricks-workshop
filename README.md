@@ -27,5 +27,5 @@ This content is designed for participants who possess the following skills and e
 
 ## Next Steps
 
-- Follow the [User Guide]($./AgentBricks Workshop - Vocareum User Guide.pdf)
-- Go to the [AGENDA]($./Get Started with AgentBricks KA on Databricks/AGENDA) in this course
+- Follow the [User Guide](./AgentBricks%20Workshop%20-%20Vocareum%20User%20Guide.pdf)
+- Go to the [AGENDA](./Get%20Started%20with%20AgentBricks%20KA%20on%20Databricks/AGENDA)
