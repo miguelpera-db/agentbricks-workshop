@@ -66,6 +66,19 @@ def validate_catalog_and_schema_and_volumes():
         else:
             print(f"Volume 'dbacademy.{user_schema}.{volume_name}' found")
         
+
+        # Check if volume exists
+        volume_name = f"product-pdfs"
+        volumes = [row.volume_name for row in spark.sql(f"SHOW VOLUMES IN dbacademy.{user_schema}").collect()]
+        if volume_name not in volumes:
+            print(f"Volume 'dbacademy.{user_schema}.{volume_name}' does not exist. Creating volume...")
+            spark.sql(f"CREATE VOLUME dbacademy.{user_schema}.`{volume_name}`")
+            print(f"Volume 'dbacademy.{user_schema}.{volume_name}' created")
+        else:
+            print(f"Volume 'dbacademy.{user_schema}.{volume_name}' found")
+        
+
+
         return True
     except Exception as e:
         print(f"Error validating catalog/schema/volume: {str(e)}")
@@ -191,7 +204,7 @@ tables_loaded = load_csv_to_delta()
 import os
 import urllib.request
 
-volume_path = f"/Volumes/dbacademy/{user_schema}/customer-service"
+volume_path = f"/Volumes/dbacademy/{user_schema}/product-pdfs"
 
 pdf_files = [
     "https://raw.githubusercontent.com/miguelpera-db/agentbricks-workshop/main/resources/product_doc_blendmaster_elite_4000.pdf",
