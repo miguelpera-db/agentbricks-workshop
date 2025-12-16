@@ -91,7 +91,7 @@ spark.sql(f"USE SCHEMA {user_schema}")
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ## 3. Load CSV Files to Volumes and Delta Tables and PDF to Volume
+# MAGIC ## 3. Load CSV Files to Volumes and Delta Tables and PDFs/MDs to Volume
 
 # COMMAND ----------
 
@@ -208,6 +208,7 @@ volume_path = f"/Volumes/dbacademy/{user_schema}/product-pdfs"
 
 pdf_files = [
     "https://raw.githubusercontent.com/miguelpera-db/agentbricks-workshop/main/resources/product_doc_blendmaster_elite_4000.pdf",
+    "https://raw.githubusercontent.com/miguelpera-db/agentbricks-workshop/main/resources/product_doc_brownbox_X500.md"
 ]
 
 for download_url in pdf_files:
