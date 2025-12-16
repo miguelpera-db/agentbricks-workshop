@@ -68,7 +68,7 @@ def validate_catalog_and_schema_and_volumes():
         
 
         # Check if volume exists
-        volume_name = f"product-pdfs"
+        volume_name = f"product-docs"
         volumes = [row.volume_name for row in spark.sql(f"SHOW VOLUMES IN dbacademy.{user_schema}").collect()]
         if volume_name not in volumes:
             print(f"Volume 'dbacademy.{user_schema}.{volume_name}' does not exist. Creating volume...")
@@ -204,7 +204,7 @@ tables_loaded = load_csv_to_delta()
 import os
 import urllib.request
 
-volume_path = f"/Volumes/dbacademy/{user_schema}/product-pdfs"
+volume_path = f"/Volumes/dbacademy/{user_schema}/product-docs"
 
 pdf_files = [
     "https://raw.githubusercontent.com/miguelpera-db/agentbricks-workshop/main/resources/product_doc_blendmaster_elite_4000.pdf",

@@ -47,8 +47,11 @@
 # MAGIC      - **Doc URI Column**: product_id
 # MAGIC      - **Text Column**: indexed_doc
 # MAGIC      - **Describe the content**: Product documentation
-# MAGIC 4. (Optional) **Instructions**: Style/guardrails for answers (tone, citation behavior, etc.). 
-# MAGIC 5. Legacy (skipped)
+# MAGIC 4. (Alternative/Optional) **Add knowledge source** (the core of your RAG):
+# MAGIC      - **Type**: *UC FILES*
+# MAGIC      - **Source**: /Volumes/dbacademy/{your_schema}/product-docs
+# MAGIC      - **Describe the content**: Product documentation
+# MAGIC 5. (Optional) **Instructions**: Style/guardrails for answers (tone, citation behavior, etc.). 
 
 # COMMAND ----------
 
