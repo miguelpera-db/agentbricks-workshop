@@ -78,7 +78,7 @@ spark.sql(f"USE SCHEMA {user_schema}")
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ## 3. Load CSV Files to Delta Tables
+# MAGIC ## 3. Load CSV Files to Volumes and Delta Tables and PDF to Volume
 
 # COMMAND ----------
 
@@ -185,6 +185,36 @@ def load_csv_to_delta():
     return len(loaded_tables) > 0 or len(skipped_tables) > 0
 
 tables_loaded = load_csv_to_delta()
+
+# COMMAND ----------
+
+import os
+import urllib.request
+
+volume_path = f"/Volumes/dbacademy/{user_schema}/customer-service"
+
+pdf_files = [
+    "https://raw.githubusercontent.com/miguelpera-db/agentbricks-workshop/main/resources/product_doc_blendmaster_elite_4000.pdf",
+]
+
+for download_url in pdf_files:
+    file_name = os.path.basename(download_url)
+    target_path = f"{volume_path}/{file_name}"
+    print(f"Downloading {download_url}...")
+
+    # Add a User-Agent header to avoid 403 error
+    req = urllib.request.Request(
+        download_url,
+        headers={"User-Agent": "Mozilla/5.0"}
+    )
+    with urllib.request.urlopen(req) as response:
+        file_content = response.read()
+
+    # Write binary content as base64 to dbutils.fs
+    import base64
+    encoded_content = base64.b64encode(file_content).decode("utf-8")
+    dbutils.fs.put(target_path, encoded_content, overwrite=True)
+    print(f"Downloaded {file_name} to {target_path}")
 
 # COMMAND ----------
 
